@@ -1,0 +1,16 @@
+*{
+  border:1px solid pink;
+}
+h1{
+  color:brown;
+  text-align: center;
+}
+p{
+  display: inline;
+  margin: 1% 10%;
+}
+#link_box{
+  width:80%;
+  margin: 1% 10%;
+}
+

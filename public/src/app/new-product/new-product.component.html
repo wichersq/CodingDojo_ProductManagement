@@ -1,0 +1,16 @@
+<h2 class="display-2">Create A New Product</h2>
+<form>
+  <p>{{creatingProduct|json}}</p>
+  <div class="input_box">
+    <label>Title: </label>
+    <input type="text" name="creatingProduct.title" [(ngModel)]="creatingProduct.title" placeholder="Add Title Here">
+    <label>Price: </label>
+    <input type="text" name="creatingProduct.price" [(ngModel)]="creatingProduct.price" placeholder="Add Price Here">
+    <label>Image Url: </label>
+    <input type="url" name="creatingProduct.url" [(ngModel)]="creatingProduct.url" placeholder="Add Image Url Here">
+  </div>
+  <div class="btn_box">
+    <button (click)="createNewProduct()" class="btn btn-success" type="submit">Submit</button>
+    <button class="btn btn-danger" [routerLink]="['/home']">Cancel</button>
+  </div>
+</form>

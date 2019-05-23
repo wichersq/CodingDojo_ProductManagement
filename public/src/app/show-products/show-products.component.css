@@ -1,0 +1,33 @@
+.col{
+  width:46%;
+  margin:2%;
+  padding:2%;
+  display:inline-block;
+  background-color: aqua;
+}
+img{
+  margin:auto;
+  height: 300px;
+  display: block;
+}
+.btn{
+  padding:3% 5%;
+  font-size: 150%;
+  width:25%;
+  margin:1%;
+  background-color: goldenrod;
+}
+.btn_box{
+  margin-left:25%;
+}
+.display-2{
+  margin:auto;
+  text-align: center;
+  color: blueviolet;
+}
+.displayInfo{
+  font-weight: bold;
+  font-size: 200%;
+  margin: 3% auto;
+  text-align: center;
+}

@@ -1,0 +1,17 @@
+<
+<h2 class="display-2">Edit A Product</h2>
+<form>
+  <p>{{editingProduct|json}}</p>
+  <div class="input_box">
+    <label>Title: </label>
+    <input type="text" name="editingProduct.title" [(ngModel)]="editingProduct.title" placeholder="Add Title Here">
+    <label>Price: </label>
+    <input type="text" name="editingProduct.price" [(ngModel)]="editingProduct.price" placeholder="Add Price Here">
+    <label>Image Url: </label>
+    <input type="url" name="editingProduct.url" [(ngModel)]="editingProduct.url" placeholder="Add Image Url Here">
+  </div>
+  <div class="btn_box">
+    <button (click)="updateProduct()" class="btn btn-success" type="submit">Submit</button>
+    <button class="btn btn-danger" [routerLink]="['/home']">Cancel</button>
+  </div>
+</form>

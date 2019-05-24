@@ -31,3 +31,10 @@ img{
   margin: 3% auto;
   text-align: center;
 }
+.product_btn{
+  width: 70%;
+  background-color: aqua;
+  background-size:100%;
+  border: 0px;
+  margin: 1% 15%
+}

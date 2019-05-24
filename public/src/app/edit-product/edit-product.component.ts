@@ -10,21 +10,27 @@ import { HttpService } from '../http.service';
 })
 export class EditProductComponent implements OnInit {
   editingProduct: any
+  errors:{}
   constructor(private _route: ActivatedRoute,
     private _router: Router,
     private _httpService: HttpService) { }
 
+
   ngOnInit() {
     this.editingProduct = { _id: "", title: "", price: null, url: "" }
+    this.errors={title: "", price: "", url: ""};
+
     this.getEditingProduct()
   }
   getEditingProduct() {
     this._route.params.subscribe((params: Params) => {
-      let temp = this._httpService.editingProduct
-      if (temp._id === params['id']) {
+      let temp = this._httpService.getTargetingProduct();
+      if (temp && temp._id === params['id']) {
+        console.log("getInfo")
         this.editingProduct = temp;
       } else {
         this.editingProduct = { _id: "", title: "", price: null, url: "" }
+        this._router.navigate(['products'])
       }
     });
   }
@@ -32,7 +38,7 @@ export class EditProductComponent implements OnInit {
   updateProduct() {
     this._httpService.editOneProduct(this.editingProduct).subscribe(data => {
       if (data['error']) {
-        console.log(data['error'])
+        this.errors = data['error']
       } else {
         console.log(data['updatedData'])
         this._router.navigate(['products'])

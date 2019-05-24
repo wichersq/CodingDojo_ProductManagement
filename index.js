@@ -10,6 +10,7 @@
 	// Require path
 	const path = require('path');
 	const session = require('express-session');
+	const uniqueValidator = require('mongoose-unique-validator');
 
 	// Setting our Static Folder Directory
 	app.use(express.static(path.join(__dirname, 'public/dist/public')));
@@ -57,10 +58,12 @@
 		title: {
 			type: String,
 			require: [true, "Please Add a Title for The Product"],
-			minlength: [4, "The title is required to have more than 4 characters"]
+			minlength: [4, "The title is required to have more than 4 characters"],
+			index: true,
+			unique: [true, "The product is already in the system.Please try another product "]
 		},
 		price: {
-			type: Number,
+			type: [Number, "Price should be number"],
 			require: [true, "Please Add A Product Price"]
 		},
 		url: {
@@ -71,10 +74,26 @@
 		timestamp: true
 	});
 
+	const ReviewSchema = new mongoose.Schema({
+		content: {
+			type: String,
+			require: [true, "Please Add a Content for The Product"],
+			minlength: [4, "The Content is required to have more than 4 characters"],
+		},
+		stars: {
+			type: Number,
+			require: [true]
+		},
+	}, {
+		timestamp: true
+	});
+	ProductSchema.plugin(uniqueValidator);
+
 
 
 	mongoose.model(MAIN_TB, ProductSchema); // We are setting this Schema in our Models as 'User'
 	// mongoose.model(FEATURE_TB, ReviewSchema); // We are setting this Schema in our Models as 'User'
+	mongoose.model(FEATURE_TB, ReviewSchema);
 	const Product = mongoose.model(MAIN_TB)
 
 	mongoose.Promise = global.Promise;
@@ -112,7 +131,7 @@
 				//        req.flash('registration', err.errors[key].message);
 				//    }
 				res.json({
-					error: err
+					errors: err['errors']
 				});
 			} else {
 				res.json({
@@ -150,9 +169,9 @@
 			},
 			(err, data) => {
 				if (err) {
-					console.log('err err erer', err)
+					console.log('err err erer',  err['errors'])
 					res.json({
-						error: err
+						error: err['errors']
 					});
 				}
 				// deleted at most one tank document

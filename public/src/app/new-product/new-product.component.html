@@ -3,14 +3,21 @@
   <p>{{creatingProduct|json}}</p>
   <div class="input_box">
     <label>Title: </label>
+    <p class="alert alert-danger" *ngIf="errors.title">{{errors.title.message}}</p>
+    <p class="alert alert-danger" *ngIf="creatingProduct.title && creatingProduct.title.length < 4">Title of products
+      needs to be more than 4 characters</p>
     <input type="text" name="creatingProduct.title" [(ngModel)]="creatingProduct.title" placeholder="Add Title Here">
     <label>Price: </label>
+    <p class="alert alert-danger" *ngIf="errors.price">{{errors.price.message}}</p>
     <input type="text" name="creatingProduct.price" [(ngModel)]="creatingProduct.price" placeholder="Add Price Here">
     <label>Image Url: </label>
+    <p class="alert alert-danger" *ngIf="errors.url">{{errors.url.message}}</p>
     <input type="url" name="creatingProduct.url" [(ngModel)]="creatingProduct.url" placeholder="Add Image Url Here">
   </div>
   <div class="btn_box">
-    <button (click)="createNewProduct()" class="btn btn-success" type="submit">Submit</button>
+    <button (click)="createNewProduct()" class="btn btn-success" type="submit"
+      [disabled]="creatingProduct.title.length < 4">Submit</button>
     <button class="btn btn-danger" [routerLink]="['/home']">Cancel</button>
   </div>
+  <img src={{creatingProduct.url}}>
 </form>

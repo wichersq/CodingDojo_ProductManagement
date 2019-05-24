@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class HttpService {
-  editingProduct: any;
+  targetingProduct: any;
+
   constructor(private _http: HttpClient) {
 
   }
@@ -34,10 +35,16 @@ export class HttpService {
   //  deleteOneTask(id){
   //    return this._http.delete(`/tasks/${id}`)
   //  }
-  setEditingProduct(product) {
-    this.editingProduct = product
-    console.log('editing product in service', this.editingProduct)
+  updateTargetingProduct(product) {
+    this.targetingProduct = product
+    console.log('editing product in service', this.targetingProduct)
+  }
 
+  getTargetingProduct(){
+    console.log('getting editing product in service', this.targetingProduct)
+    let temp = this.targetingProduct;
+    this.targetingProduct = {};
+    return temp
   }
   deleteOneProduct(product){
     return this._http.delete(`delete_a_product/${product._id}`);

@@ -29,7 +29,7 @@ updateProducts(){
 }
 getToEditPage(product): void {
   // this.eventClicked.emit(product);
-  this._httpService.setEditingProduct(product);
+  this._httpService.updateTargetingProduct(product);
   this._router.navigate([`products/edit/${product._id}`]);
 }
 deleteProduct(product){
@@ -41,6 +41,9 @@ deleteProduct(product){
       this.updateProducts();
     }
   });
-
+}
+getToDetailPage(product){
+  this._httpService.updateTargetingProduct(product);
+  this._router.navigate([`products/detail/${product._id}`]);
 }
 }

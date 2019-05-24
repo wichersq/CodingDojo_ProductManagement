@@ -10,6 +10,7 @@ import { HttpService } from '../http.service';
 })
 export class NewProductComponent implements OnInit {
   creatingProduct: any
+  errors = {};
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -17,12 +18,13 @@ export class NewProductComponent implements OnInit {
 
   ngOnInit() {
     this.creatingProduct = { title: "", url: "", price: null };
+    this.errors={title:"", price: "", url: ""};
   }
 
   createNewProduct() {
     this._httpService.addNewProduct(this.creatingProduct).subscribe(data => {
-      if (data['error']) {
-        console.log(data['error'])
+      if (data['errors']) {
+        this.errors = data['errors']
       } else {
         this.creatingProduct = { title: "", url: "", price: null };
         this._router.navigate(['products'])

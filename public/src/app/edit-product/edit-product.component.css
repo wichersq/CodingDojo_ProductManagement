@@ -25,3 +25,8 @@ form{
   padding:2% 5%;
   margin:0 1%;
 }
+img{
+  margin:auto;
+  height: 300px;
+  display: block;
+}

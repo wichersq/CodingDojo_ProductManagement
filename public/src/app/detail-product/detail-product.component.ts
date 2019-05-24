@@ -45,11 +45,12 @@ export class DetailProductComponent implements OnInit {
           console.log('errorFromUpdate')
         } else {
           console.log('update is done', data['updatedData'])
-          this.selectedProduct = data['updatedData'];
+          this._httpService.updateTargetingProduct( data['updatedData']);
+          // this._router.navigate(['products'])
+         this.ngOnInit()
         }
-      });
+       });
     } else {
-
       this._router.navigate(['products'])
 
     }

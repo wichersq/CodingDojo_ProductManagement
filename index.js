@@ -57,7 +57,7 @@
 			require: [true]
 		},
 	}, {
-		timestamp: true
+		timestamps: true
 	});
 	const ProductSchema = new mongoose.Schema({
 		title: {
@@ -77,7 +77,7 @@
 		},
 		reviews: [ReviewSchema],
 	}, {
-		timestamp: true
+		timestamps: true
 	});
 
 	ProductSchema.plugin(uniqueValidator);
@@ -95,7 +95,7 @@
 	// Root Request
 	app.get('/get_all_products', (req, res) => {
 
-		Product.find({}, (err, data) => {
+		var products = Product.find({}).sort({ updatedAt : -1}).exec((err, data) => {
 			if (err) {
 				res.json({
 					error: err

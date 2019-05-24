@@ -1,4 +1,4 @@
-import { Component, OnInit,Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpService } from '../http.service';
 
@@ -15,35 +15,36 @@ export class ShowProductsComponent implements OnInit {
     private _router: Router,
     private _httpService: HttpService) { }
 
-ngOnInit() {
-  this.updateProducts()
-}
-updateProducts(){
-  this._httpService.getAllProducts().subscribe(data =>{
-    if(data["error"]){
-      console.log('errorFromUpdate')
-    }else{
-      this.products = data['products']
-    }
-  })
-}
-getToEditPage(product): void {
-  // this.eventClicked.emit(product);
-  this._httpService.updateTargetingProduct(product);
-  this._router.navigate([`products/edit/${product._id}`]);
-}
-deleteProduct(product){
-  this._httpService.deleteOneProduct(product).subscribe(data=>{
-    if(data["error"]){
-      console.log('errorFromUpdate')
-    }else{
-      data['deleteData'];
-      this.updateProducts();
-    }
-  });
-}
-getToDetailPage(product){
-  this._httpService.updateTargetingProduct(product);
-  this._router.navigate([`products/detail/${product._id}`]);
-}
+  ngOnInit() {
+    this.updateProducts()
+  }
+  updateProducts() {
+    this._httpService.getAllProducts().subscribe(data => {
+      if (data["error"]) {
+        console.log('errorFromUpdate')
+      } else {
+        this.products = data['products']
+        console.log('getAllProducts', this.products)
+      }
+    })
+  }
+  getToEditPage(product): void {
+    // this.eventClicked.emit(product);
+    this._httpService.updateTargetingProduct(product);
+    this._router.navigate([`products/edit/${product._id}`]);
+  }
+  deleteProduct(product) {
+    this._httpService.deleteOneProduct(product).subscribe(data => {
+      if (data["error"]) {
+        console.log('errorFromUpdate')
+      } else {
+        data['deleteData'];
+        this.updateProducts();
+      }
+    });
+  }
+  getToDetailPage(product) {
+    this._httpService.updateTargetingProduct(product);
+    this._router.navigate([`products/detail/${product._id}`]);
+  }
 }

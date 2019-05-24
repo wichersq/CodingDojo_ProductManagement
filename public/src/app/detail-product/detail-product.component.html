@@ -1,21 +1,26 @@
-
 <h2 class="display-2">Edit A Product</h2>
-
 <form>
-  <p>{{editingProduct|json}}</p>
-  <div class="input_box">
-    <label>Title: </label>
-    <p class="alert alert-danger" *ngIf = "errors.title">{{errors.title.message}}</p>
-    <p class="alert alert-danger" *ngIf = "editingProduct.title.length < 4">Title of products needs to be more than 4 characters</p>
-    <input type="text" name="editingProduct.title" [(ngModel)]="editingProduct.title" placeholder="Add Title Here">
-    <label>Price: </label>
-    <input type="text" name="editingProduct.price" [(ngModel)]="editingProduct.price" placeholder="Add Price Here">
-    <label>Image Url: </label>
-    <input type="url" name="editingProduct.url" [(ngModel)]="editingProduct.url" placeholder="Add Image Url Here">
+  <p>{{newReview|json}}</p>
+  <div class='col'>
+    <img src={{selectedProduct.url}}>
   </div>
-  <div class="btn_box">
-    <button (click)="updateProduct()" class="btn btn-success" type="submit" [disabled]="editingProduct.title.length < 4" >Submit</button>
-    <button class="btn btn-danger" [routerLink]="['/products']">Cancel</button>
+  <div class='col'>
+    <label>Rating: </label>
+    <select class="dropdown_rating" name="newReview.rate" [(ngModel)]="newReview.rate">
+      <option [ngValue]="1">1 stars</option>
+      <option [ngValue]="2">2 stars</option>
+      <option [ngValue]="3" select="selected">3 stars</option>
+      <option [ngValue]="4">4 stars</option>
+      <option [ngValue]="5">5 stars</option>
+    </select>
+    <label>Comment: </label>
+    <textarea class="review_area" name="newReview.content" [(ngModel)]="newReview.content"
+      placeholder="Type your comment here"></textarea>
+    <div class="btn_box">
+      <button (click)="addReviews(selectedProduct._id)" class="btn btn-success" type="submit"
+        [disabled]="newReview.content.length < 4">Add A Review</button>
+      <button class="btn btn-danger" [routerLink]="['/products']">Cancel</button>
+    </div>
   </div>
-  <img src={{editingProduct.url}}>
 </form>
+<app-reviews *ngIf = "selectedProduct.reviews" [showingProduct] = 'selectedProduct'></app-reviews>

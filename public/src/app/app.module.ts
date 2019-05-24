@@ -12,6 +12,7 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { HomeComponent } from './home/home.component';
 import { ShowProductsComponent } from './show-products/show-products.component';
 import { DetailProductComponent } from './detail-product/detail-product.component';
+import { ReviewsComponent } from './reviews/reviews.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DetailProductComponent } from './detail-product/detail-product.componen
     EditProductComponent,
     HomeComponent,
     ShowProductsComponent,
-    DetailProductComponent
+    DetailProductComponent,
+    ReviewsComponent
   ],
   imports: [
     BrowserModule,

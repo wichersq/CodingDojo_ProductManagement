@@ -1,0 +1,9 @@
+<div class = "reviewsBox" >
+    <h1 class= "display-3">All Reviews for This product</h1>
+    <!-- <p>{{selectedProduct|json}}</p> -->
+    <ul>
+      <li *ngFor="let review of showingProduct.reviews; let i = index ">
+        {{i+1}} ---- {{review.content}} ------ {{review.rate}} stars
+      </li>
+    </ul>
+  </div>

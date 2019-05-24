@@ -45,15 +45,20 @@
 	const PORT_NUM = 6868;
 
 	mongoose.connect(`mongodb://localhost/${DB_NAME}`); // use or create databases
-	// const UserSchema = new mongoose.Schema({
-	// 	name: {
-	// 		type: String,
-	// 		require: [true, "Please Write Your Review"]
-	// 	},
-	// 	product: [ProductSchema],
-	// }, {
-	// 	timestamp: true
-	// });
+
+	const ReviewSchema = new mongoose.Schema({
+		content: {
+			type: String,
+			require: [true, "Please Add a Content for The Product"],
+			minlength: [4, "The Content is required to have more than 4 characters"],
+		},
+		rate: {
+			type: Number,
+			require: [true]
+		},
+	}, {
+		timestamp: true
+	});
 	const ProductSchema = new mongoose.Schema({
 		title: {
 			type: String,
@@ -68,25 +73,13 @@
 		},
 		url: {
 			type: String,
-			required: [true, 'Please Add Picture for The Product'],
-		}
+			required: [true, 'Please Add Picture for The Product']
+		},
+		reviews: [ReviewSchema],
 	}, {
 		timestamp: true
 	});
 
-	const ReviewSchema = new mongoose.Schema({
-		content: {
-			type: String,
-			require: [true, "Please Add a Content for The Product"],
-			minlength: [4, "The Content is required to have more than 4 characters"],
-		},
-		stars: {
-			type: Number,
-			require: [true]
-		},
-	}, {
-		timestamp: true
-	});
 	ProductSchema.plugin(uniqueValidator);
 
 
@@ -95,6 +88,7 @@
 	// mongoose.model(FEATURE_TB, ReviewSchema); // We are setting this Schema in our Models as 'User'
 	mongoose.model(FEATURE_TB, ReviewSchema);
 	const Product = mongoose.model(MAIN_TB)
+	const Review = mongoose.model(FEATURE_TB)
 
 	mongoose.Promise = global.Promise;
 
@@ -169,7 +163,7 @@
 			},
 			(err, data) => {
 				if (err) {
-					console.log('err err erer',  err['errors'])
+					console.log('err err erer', err['errors'])
 					res.json({
 						error: err['errors']
 					});
@@ -181,6 +175,39 @@
 					});
 			});
 	});
+
+
+	app.put('/addReviewToProduct/:id', (req, res) => {
+		console.log("*********app.put('/cakes/:id/review/new')*********req***********************", req.body);
+
+		var review = new Review({
+			content: req.body.content,
+			rate: req.body.rate
+		})
+		review.save(function (err, data) {
+			if (!err) {
+				console.log('get in findbyId and update', req.params.id)
+				Product.findByIdAndUpdate(req.params.id, {
+						$push: {
+							reviews: review
+						}
+					},
+					(err, data) => {
+						if (err) {
+							console.log('err err erer', err)
+							res.json({
+								error: err
+							});
+						}
+						else
+						console.log("dskjhdaksjhsdkjs", data)
+							res.json({
+								updatedData: data
+							});
+				});
+			}
+		})
+	});
 	app.delete('/delete_a_product/:id', (req, res) => {
 		Product.deleteOne({
 			_id: req.params.id
@@ -191,7 +218,9 @@
 				})
 			} // deleted at most one tank document
 			else
-				res.json({deleteData: data});
+				res.json({
+					deleteData: data
+				});
 		});
 	});
 

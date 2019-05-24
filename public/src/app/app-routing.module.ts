@@ -21,6 +21,8 @@ const routes: Routes = [
   { path: 'home', pathMatch: 'full', redirectTo: '' },
   {
     path: '', component: HomeComponent
+  }, {
+    path: '**', redirectTo: ''
   }
 ];
 

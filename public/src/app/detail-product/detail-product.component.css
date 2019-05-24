@@ -1,0 +1,33 @@
+.review_area{
+  height:150px;
+  width:99%;
+  margin: 3% auto;
+}
+.btn_box{
+  width: 50%;
+  margin:2% 40%;
+}
+.btn{
+  margin: 1% 2%;
+}
+.dropdown_rating{
+  background-color: aquamarine;
+  width: 40%;
+  display:block;
+  text-align: center;
+  height:50px;
+  font-size: 120%;
+}
+.col{
+  width: 40%;
+  display:inline-block;
+  vertical-align: top;
+  margin:1% 5%
+  }
+
+  li{
+    border: 2px solid red;
+    font-size:150%;
+    margin:1%;
+    list-style: none;
+  }

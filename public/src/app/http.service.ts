@@ -27,28 +27,24 @@ export class HttpService {
   editOneProduct(updateInfo) {
     return this._http.put(`/update_the_product`, updateInfo);
   }
-  //  createNewTask(newTask){
-  //    console.log("http.service.ts")
-  //    return this._http.post('/tasks/new', newTask); //newTask is for req.body in server.js
-  //  }
-  //  // TODO: write deleteOneTask
-  //  deleteOneTask(id){
-  //    return this._http.delete(`/tasks/${id}`)
-  //  }
+
   updateTargetingProduct(product) {
     this.targetingProduct = product
-    console.log('editing product in service', this.targetingProduct)
+    console.log('targeting product in service', this.targetingProduct)
   }
 
-  getTargetingProduct(){
-    console.log('getting editing product in service', this.targetingProduct)
+  getTargetingProduct() {
+    console.log('getting targeting product in service', this.targetingProduct)
     let temp = this.targetingProduct;
     this.targetingProduct = {};
     return temp
   }
-  deleteOneProduct(product){
+  deleteOneProduct(product) {
     return this._http.delete(`delete_a_product/${product._id}`);
 
+  }
+  createNewReview(id, review) {
+    return this._http.put(`/addReviewToProduct/${id}`, review)
   }
 }
 
